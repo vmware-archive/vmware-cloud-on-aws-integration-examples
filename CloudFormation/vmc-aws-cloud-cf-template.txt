@@ -1,0 +1,91 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "2e857d70-c41a-4baa-b6d5-99b0bb72b5ab": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 363,
+                    "y": 219
+                },
+                "z": 0
+            }
+        }
+    },
+   "Resources": {
+        "LF4N2QS": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Code": {
+                    "S3Bucket": "vmc-skyscraper-lambda",
+                    "S3Key": "vmc-lambda-1.0.jar"
+                },
+                "Role": { "Fn::GetAtt" : ["BasicLambdaRole", "Arn"] },
+                "Handler": "sddc.AwsSddc::handleRequest",
+                "MemorySize": 1024,
+                "Runtime": "java8",
+                "Timeout": 300,
+                "Environment": {
+                    "Variables": {
+                        "orgId": "",
+                        "name": "",
+                        "region": "US_WEST_2",
+                        "numOfHosts": "",
+                        "email": "",
+                        "user_refresh_token": "",
+                        "customer_subnet_ids": "",
+                        "vpc_cidr": "10.0.0.0/16",
+                        "connected_account_id": "",
+                    }
+                }
+            }
+            },
+        "BasicLambdaRole": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Action": [
+                  "sts:AssumeRole"
+                ],
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": [
+                    "lambda.amazonaws.com"
+                  ]
+                }
+              }
+            ]
+          },
+          "Path": "/",
+          "Policies": [{
+          "PolicyName": "root"  ,
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": [
+                  "logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents"
+                ],
+                "Resource": "arn:aws:logs:*:*:*"
+              }
+            ]
+          }
+        }]
+      },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "2e857d70-c41a-4baa-b6d5-99b0bb72b5ab"
+                }
+            }
+        }
+    }
+}
