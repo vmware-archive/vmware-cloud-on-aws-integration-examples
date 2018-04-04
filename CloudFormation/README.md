@@ -14,7 +14,7 @@ This folder contains an example AWS CloudFormation template which allows for the
 Use the following steps to setup the CloudFormation template and run it to create a new VMware Cloud on AWS SDDC:
 
 * Log in to your AWS account and go to AWS CloudFormation
-* Change the region to US_WEST_2 (Oregon)
+* Change the region to US WEST (Oregon)
 * Click the "Create New Stack" button
 * Either upload the downloaded version of the template from this repository or use the following URL for an existing version of this template (Specify an Amazon S3 template URL): https://s3-us-west-2.amazonaws.com/vmc-skyscraper-lambda/vmc-aws-cloud-CF-template.txt
 * Click Next
@@ -23,16 +23,16 @@ Use the following steps to setup the CloudFormation template and run it to creat
 * Click the check box "I acknowledge that AWS CloudFormation might create IAM resources." - This allows for the creation of a IAM role that will be used while executing this Lambda function inside the CloudFormation Template
 * Click Create
 * Wait while the lambda function is created in your AWS account
-* Create_Complete will show the stack has been completed
-* Click on the name of the stack under Stack Name
+* "Create_Complete" will show the stack has been completed
+* Click on the name of the stack under "Stack Name"
 * Expand the Resources section and click on the Physical ID of the resource which has a Type of "AWS::Lambda::Function"
 * You will now see the Lambda function which can be used to deploy the SDDC
 * Add the input fields in the text boxes under the environment variables section, these will be used to create your SDDC.
-    * connected_account_id: This is the UUID of the amazon account ID used to connect, this can be found by using the VMC API by calling GET /orgs/{org}/account-link/sddc-connections and is labeled conected_account_id
+    * connected_account_id: This is the Amazon account ID used to connect, this can be found by using the VMC API by calling GET /orgs/{org}/account-link/connected-accounts and is labeled id
     * customer_subnet_ids: This is the ID of the subnet, not the actual subnet itself, this can be found by using the VMC API by calling GET /orgs/{org}/account-link/compatible-subnets and is labeled subnet_id for the subnet_cidr_block that you want to use
     * Email: The email field is still under development and will not send an email at the moment
-    * vpc_cidr: Use a unique cidr to connect like 10.2.0.0/16
-    * SDDCName: The name of the SDDC to be created
+    * vpc_cidr: This is the subnet for management traffic, default is 10.2.0.0/16
+    * name: The name of the SDDC to be created
     * numOfHosts: The number of hosts to add to the SDDC
     * orgId: Can be found in the VMware Cloud on AWS API or as part of the UI under an existing SDDC connection and the "Support Info" tab
     * region: Please use US_WEST_2 (case sensitive)
